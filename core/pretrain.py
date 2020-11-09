@@ -93,7 +93,7 @@ def eval_src(encoder, classifier, data_loader):
         loss += criterion(preds, labels).data[0]
 
         pred_cls = preds.data.max(1)[1]
-        acc += pred_cls.eq(labels.data).cpu().sum()
+        acc += pred_cls.eq(labels.data).cpu().sum().item()##增加了item()，不然会报错RuntimeError: Expected object of type torch.cuda.LongTensor but found type torch.LongTensor
 
     loss /= len(data_loader)
     acc /= len(data_loader.dataset)
